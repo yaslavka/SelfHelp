@@ -1,0 +1,27 @@
+{
+  "signUpPage": {
+    "title": "Регистрация",
+    "ackauntredy": "Уже есть аккаунт?",
+    "signin": "Войти",
+    "input": {
+      "lastname": "полное имя",
+      "phone": "Телефон",
+      "email": "Емаил",
+      "password": "пароль"
+    }
+  },
+  "signInPage": {
+    "title": "Войти",
+    "ackauntredy": "Нет аккаунта?",
+    "signin": "Регистрация",
+    "input": {
+      "phone": "Телефон",
+      "password": "пароль"
+    }
+  },
+  "otp": {
+    "otp": "Enter the OTP Code",
+    "text": "мы отправили смс с кодом на номер",
+    "error": "Неверный код"
+  }
+}

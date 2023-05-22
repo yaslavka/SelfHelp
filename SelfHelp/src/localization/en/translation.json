@@ -1,0 +1,95 @@
+{
+  "signInPage": {
+    "inputs": {
+      "username": {
+        "error": "Обязательно к заполнению",
+        "placeholder": "Емаил"
+      },
+      "password": {
+        "error": "Пароль должен содержать минимум 8 символов",
+        "placeholder": "Введите пароль"
+      }
+    },
+    "mainTitle": "Вход в системму",
+    "buttons": {
+      "signIn": "Войти"
+    },
+    "links": {
+      "forgotPassword": "Забыли пароль?",
+      "signUp": "нет Аккаунта?",
+      "register": "Зарегистрироватся",
+      "or": "или",
+      "facebook": "Войти с facebook",
+      "google": "Войти с google"
+    },
+    "pages": {
+      "private": {
+        "methodPayments": {
+          "methodPayments": "как вам удобно платить?"
+        },
+        "forBusiness": {
+          "forBusiness": "для бизнеса"
+        },
+        "couriers": {
+          "couriers": "Стать курьером"
+        },
+        "history": {
+          "history": "История заказов",
+          "title": "Мои заказы"
+        },
+        "safety": {
+          "safety": "Безопасность"
+        },
+        "settings": {
+          "settings": "Настройки"
+        },
+        "support": {
+          "support": "Служба потдержки"
+        }
+      }
+    },
+    "signUpPage": {
+      "inputs": {
+        "firstName": {
+          "error": "Заполните поле",
+          "placeholder": "Имя"
+        },
+        "lastName": {
+          "error": "Заполните поле",
+          "placeholder": "Фамилия"
+        },
+        "phone": {
+          "error": "Укажите коректный номер телефона в формате +7",
+          "placeholder": "Телефон"
+        },
+        "email": {
+          "error": "Введите коректный email",
+          "placeholder": "Укажите email"
+        },
+        "username": {
+          "error": "Введите Логин",
+          "placeholder": "Придумайте логин"
+        },
+        "password": {
+          "error": "Введите пароль",
+          "placeholder": "Придумайте пароль"
+        },
+        "repeatPassword": {
+          "error": "Пароли не совпадают",
+          "placeholder": "Повторите пароль"
+        },
+        "acceptPrivacyPolicy": {
+          "placeholder": "принимаю условия политики конфендициальности",
+          "error": "Согласитесь с правилами"
+        }
+      },
+      "mainTitle": "Регистрация",
+      "buttons": {
+        "signUp": "Зарегестрироватся"
+      },
+      "links": {
+        "signIn":"У вас уже есть аккаунт?"
+      }
+    }
+  }
+}
