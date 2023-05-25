@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
   ImageBackground,
   Modal,
   Alert,
@@ -15,9 +14,6 @@ import Svg, {Circle, Path} from 'react-native-svg';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../../api';
-import * as actions from '../../actions/auth.actions';
-import {setAccessToken} from '../../utils';
-import {useDispatch} from 'react-redux';
 import OtpInputs from 'react-native-otp-inputs';
 
 function OtpPinInput() {
@@ -26,97 +22,81 @@ function OtpPinInput() {
   const [modalVisible, setModalVisible] = useState(false);
   const [pin, setPin] = useState(null);
   const [errors, setErrors] = useState(null);
-  const dispatch = useDispatch();
-  const submitSignInForm = async () => {
-    setPin();
-    await api
-      .signIn({pin: pin})
-      .then(async response => {
-        dispatch(actions.signInSuccess());
-        await setAccessToken(response);
-        await api
-          .getUserInfo()
-          .then(() => {})
-          .catch(() => {});
-      })
-      .catch(response => {
-        setPin(response.message);
-      });
+  const [status, setStatus]=useState({pinVerify:false})
+  const submitSignInForm = () => {
+ api.pinCodeSetup({pin:pin})
+     .then(response=>{setStatus({pinVerify: response.pinVerify})})
+     .catch(err=>{setErrors(err.message)})
   };
+  useEffect(()=>{
+    if (pin?.length === 6){
+      submitSignInForm()
+    }
+  },[pin?.length])
+  useEffect(()=>{
+    if (status.pinVerify === true){
+      setModalVisible(true)
+    }else {
+      setModalVisible(false)
+    }
+  },[status.pinVerify])
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#828282'}}>
       <ImageBackground source={otp} resizeMode="cover" style={{height: 1000}}>
-        <View>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Svg
-              width="415"
-              height="63"
-              viewBox="0 0 415 63"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <Path
-                d="M38.2758 24.2048C37.9935 24.2048 37.7108 24.3145 37.4956 24.5303L31.2543 30.7716C30.8228 31.2031 30.8228 31.9016 31.2543 32.332L37.4956 38.5734C37.9271 39.0048 38.6256 39.0048 39.056 38.5734L39.1508 38.4785C39.5823 38.0471 39.5823 37.3485 39.1508 36.9182L34.8879 32.6553H49.3103C49.9194 32.6553 50.4137 32.1609 50.4137 31.5518C50.4137 30.9427 49.9194 30.4484 49.3103 30.4484H34.8879L39.1508 26.1854C39.5823 25.754 39.5823 25.0554 39.1508 24.6251L39.056 24.5303C38.8403 24.3145 38.5581 24.2048 38.2758 24.2048Z"
-                fill="white"
-              />
-            </Svg>
-          </TouchableOpacity>
-        </View>
+        <View style={{marginBottom: 30}}/>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Svg
-            width="121"
-            height="121"
-            viewBox="0 0 121 121"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+              width="121"
+              height="121"
+              viewBox="0 0 121 121"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
             <Circle cx="60.4482" cy="60.1379" r="60.1379" fill="#8E8E8E" />
             <Path
-              d="M40.4022 40.092C38.7334 40.092 37.262 40.9116 36.3549 42.172C35.7435 43.0189 36.0136 44.2195 36.8981 44.7707L58.9017 58.4838C59.8489 59.0752 61.0476 59.0752 61.9947 58.4838L83.9053 44.6533C84.8249 44.072 85.0542 42.8085 84.3752 41.9616C83.4606 40.824 82.0653 40.092 80.4942 40.092H40.4022ZM84.292 50.3304C84.0824 50.3327 83.8696 50.3904 83.6704 50.5163L61.9947 64.1854C61.0476 64.7742 59.8489 64.7719 58.9017 64.1805L37.2211 50.673C36.4243 50.1768 35.3907 50.7513 35.3907 51.6909V75.1725C35.3907 77.9414 37.6334 80.184 40.4022 80.184H80.4942C83.263 80.184 85.5057 77.9414 85.5057 75.1725V51.5294C85.5057 50.8228 84.9206 50.3234 84.292 50.3304Z"
-              fill="white"
+                d="M40.4022 40.092C38.7334 40.092 37.262 40.9116 36.3549 42.172C35.7435 43.0189 36.0136 44.2195 36.8981 44.7707L58.9017 58.4838C59.8489 59.0752 61.0476 59.0752 61.9947 58.4838L83.9053 44.6533C84.8249 44.072 85.0542 42.8085 84.3752 41.9616C83.4606 40.824 82.0653 40.092 80.4942 40.092H40.4022ZM84.292 50.3304C84.0824 50.3327 83.8696 50.3904 83.6704 50.5163L61.9947 64.1854C61.0476 64.7742 59.8489 64.7719 58.9017 64.1805L37.2211 50.673C36.4243 50.1768 35.3907 50.7513 35.3907 51.6909V75.1725C35.3907 77.9414 37.6334 80.184 40.4022 80.184H80.4942C83.263 80.184 85.5057 77.9414 85.5057 75.1725V51.5294C85.5057 50.8228 84.9206 50.3234 84.292 50.3304Z"
+                fill="white"
             />
           </Svg>
         </View>
         <View>
           <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Inter',
-              fontSize: 22,
-              fontWeight: '500',
-              textAlign: 'center',
-            }}>
-            {t('otp.otp')}
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Inter',
+                fontSize: 22,
+                fontWeight: '500',
+                textAlign: 'center',
+              }}>
+            {t('pin.pin')}
           </Text>
         </View>
         <View>
           <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Inter',
-              fontSize: 16,
-              fontWeight: '400',
-              textAlign: 'center',
-            }}>
-            {t('otp.text')}
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Inter',
+                fontSize: 16,
+                fontWeight: '400',
+                textAlign: 'center',
+              }}>
+            {t('pin.text')}
           </Text>
         </View>
         <View
-          style={{
-            position: 'absolute',
-            marginTop: 260,
-            width: '90%',
-            marginHorizontal: 15,
-          }}>
+            style={{
+              position: 'absolute',
+              marginTop: 260,
+              width: '90%',
+              marginHorizontal: 15,
+            }}>
           <OtpInputs
-            keyboardType={'name-phone-pad'}
-            inputStyles={styles.underlineStyleBase}
-            handleChange={code => {
-              console.log(code);
-              code.length === 6
-                ? setModalVisible(true)
-                : setModalVisible(false);
-            }}
-            numberOfInputs={6}
-            autofillFromClipboard
+              keyboardType={'numbers-and-punctuation'}
+              inputStyles={styles.underlineStyleBase}
+              handleChange={code => {
+                setPin(code)
+              }}
+              numberOfInputs={6}
+              autofillFromClipboard
           />
         </View>
         {errors && (
@@ -184,8 +164,7 @@ function OtpPinInput() {
                 />
               </Svg>
               <Text style={styles.modalText}>
-                Congratulations, you have successfully created a universal
-                password for quick login to the application
+                {t('pin.pintitle')}
               </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}

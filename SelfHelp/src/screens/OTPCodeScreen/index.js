@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -15,16 +15,43 @@ import Svg, {Circle, Path} from 'react-native-svg';
 import OtpInputs from 'react-native-otp-inputs';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
+import {api} from "../../api";
+import {err} from "react-native-svg/lib/typescript/xml";
 
 function OtpInput({
   route: {
-    params: {phone},
+    params: {phone, email},
   },
 }) {
   const navigation = useNavigation();
   const {t} = useTranslation('common');
   const [modalVisible, setModalVisible] = useState(false);
   const [errors, setErrors] = useState(null);
+  const [otp, setOtp]=useState('')
+  const [status, setStatus]=useState({otpVerify:false})
+  useEffect(()=>{
+    api.signUpSms({phone: phone, email: email})
+        .then(()=>{})
+        .catch((err)=>{setErrors(err)})
+  },[])
+const inputOtpVeryfy = () =>{
+    api.otpSms({otps:otp, email: email})
+        .then(response=>{setStatus({otpVerify: response.otpVerify})})
+        .catch(err=>{setErrors(err.message)})
+}
+useEffect(()=>{
+  if (otp?.length === 4){
+    inputOtpVeryfy()
+  }
+},[otp?.length])
+useEffect(()=>{
+  if (status.otpVerify === true){
+    setModalVisible(true)
+  }else {
+    setModalVisible(false)
+  }
+},[status.otpVerify])
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#828282'}}>
       <ImageBackground
@@ -107,10 +134,7 @@ function OtpInput({
             keyboardType={'name-phone-pad'}
             inputStyles={styles.underlineStyleBase}
             handleChange={code => {
-              console.log(code);
-              code.length === 4
-                ? setModalVisible(true)
-                : setModalVisible(false);
+              setOtp(code);
             }}
             numberOfInputs={4}
             autofillFromClipboard
@@ -147,7 +171,7 @@ function OtpInput({
                 color: '#fff',
                 textAlign: 'center',
               }}>
-              {t('otp.error')}
+              {errors}
             </Text>
           </View>
         )}
@@ -156,7 +180,6 @@ function OtpInput({
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={styles.centeredView}>
@@ -181,8 +204,7 @@ function OtpInput({
                 />
               </Svg>
               <Text style={styles.modalText}>
-                Congratulations, you have successfully created a universal
-                password for quick login to the application
+                {t('otp.otptitle')}
               </Text>
               <Pressable
                 style={[styles.button, styles.buttonClose]}

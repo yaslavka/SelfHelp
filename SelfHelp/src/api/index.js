@@ -6,7 +6,7 @@ import {store} from '../../index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const baseInstance = axios.create({
-  baseURL: 'http://192.168.43.21:80/api',
+  baseURL: 'http://192.168.0.102:80/api',
 });
 baseInstance.interceptors.request.use(
   async config => {
@@ -47,10 +47,17 @@ export const api = {
   async signUpSms(userInfo) {
     return await baseInstance.post('/user/registration_sms', userInfo);
   },
+    async otpSms(userInfo) {
+        return await baseInstance.post('/user/registration_sms/otp', userInfo);
+    },
   async signIn(data) {
     return await baseInstance.post('/user/login', data);
   },
+    async pinCodeSetup(data) {
+        return await baseInstance.post('/user/pin_setup/pin', data);
+    },
   async getUserInfo() {
     return await baseInstance.get('/user');
   },
+
 };

@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {useEffect} from 'react';
-import type {Node} from 'react';
 import * as actions from './src/actions/app.actions';
 import SplashScreen from 'react-native-splash-screen';
 import {useDispatch, useSelector} from 'react-redux';
@@ -30,8 +21,9 @@ import ContactScreen from './src/screens/ContactScreen';
 import SecurityPinScreen from './src/screens/SecurityPinScreen';
 const Stack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();
-const App: () => Node = () => {
+const App = () => {
   const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.app.user);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,7 +37,7 @@ const App: () => Node = () => {
   return (
     <>
       <NavigationContainer>
-        {!isAuthenticated ? (
+        {isAuthenticated ? (
           <RootStack.Navigator
             screenOptions={{
               headerStyle: {
@@ -57,6 +49,13 @@ const App: () => Node = () => {
                 fontWeight: 'bold',
               },
             }}>
+            {userInfo && userInfo.pinCode === null && (
+                <RootStack.Screen
+                    name="OtpPin"
+                    component={OtpPinInput}
+                    options={{headerShown: false}}
+                />
+            )}
             <RootStack.Screen
               name="Tab"
               component={TabNavigators}
@@ -149,11 +148,6 @@ const App: () => Node = () => {
             <Stack.Screen
               name="Otp"
               component={OtpInput}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="OtpPin"
-              component={OtpPinInput}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

@@ -26,9 +26,23 @@ export function* signUp({payload}) {
     Alert.alert(error.message);
   }
 }
+
+export function* inviter({payload}) {
+  try {
+    const response = yield call(api.inviter, {username: payload});
+    if (response) {
+      yield put(actions.inviterSuccess(response));
+    }
+  } catch (error) {
+    yield put(actions.inviterError(error));
+
+    Alert.alert(error.message);
+  }
+}
 export default function* authSagas() {
   yield all([
     takeEvery(ActionTypes.SIGN_IN_REQUEST, signIn),
     takeEvery(ActionTypes.SIGN_UP_REQUEST, signUp),
+    takeEvery(ActionTypes.INVITER_REQUEST, inviter),
   ]);
 }

@@ -4,10 +4,14 @@
     "ackauntredy": "Уже есть аккаунт?",
     "signin": "Войти",
     "input": {
+      "inviter": "Логин вашего наставника",
       "lastname": "полное имя",
       "phone": "Телефон",
       "email": "Емаил",
       "password": "пароль"
+    },
+    "inviter": {
+      "title": "Ваш наставник"
     }
   },
   "signInPage": {
@@ -21,7 +25,16 @@
   },
   "otp": {
     "otp": "Enter the OTP Code",
+    "otptitle": "Congratulations, you have successfully created a universal\n                password for quick login to the application",
+    "otps": "Enter the OTP Code",
     "text": "мы отправили смс с кодом на номер",
+    "error": "Неверный код"
+  },
+  "pin": {
+    "pin": "Установите PIN CODE",
+    "pintitle": "Congratulations, you have successfully created a universal\n                password for quick login to the application",
+    "otps": "Enter the OTP Code",
+    "text": "Код безопасности используется для проверки каждой транзакции, чтобы быть более безопасным",
     "error": "Неверный код"
   }
 }

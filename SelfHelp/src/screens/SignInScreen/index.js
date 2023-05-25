@@ -208,9 +208,7 @@ function SignInScreen() {
                 marginTop: 10,
               }}>
               <Pressable
-                onPress={() => {
-                  navigation.navigate('OtpPin');
-                }}>
+                onPress={submitSignInForm}>
                 <Svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="356"

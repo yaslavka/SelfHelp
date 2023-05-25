@@ -14,3 +14,5 @@ export const signIn = data =>
     method: 'post',
     data: createFormDataObj({...data, grant_type: 'password'}),
   });
+export const inviter = params =>
+    baseInstance({url: '/user/inviter', method: 'get', params});

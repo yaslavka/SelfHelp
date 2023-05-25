@@ -27,3 +27,17 @@ export const signOutError = error => ({
   type: ActionTypes.SIGN_OUT_ERROR,
   payload: error,
 });
+/* Inviter */
+export const inviter = name => ({
+  type: ActionTypes.INVITER_REQUEST,
+  payload: name,
+});
+export const inviterSuccess = inviter => ({
+  type: ActionTypes.INVITER_SUCCESS,
+  payload: inviter,
+});
+export const inviterError = error => ({
+  type: ActionTypes.INVITER_ERROR,
+  payload: error,
+});
+export const clearInviter = () => ({type: ActionTypes.CLEAR_INVITER});

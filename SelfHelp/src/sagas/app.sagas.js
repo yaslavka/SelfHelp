@@ -12,7 +12,6 @@ export function* userInfo() {
     }
   } catch (error) {
     yield put(actions.userInfoError(error));
-
     Alert.alert(error.message);
   }
 }

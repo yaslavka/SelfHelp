@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,7 +6,9 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+    ActivityIndicator,
   TouchableOpacity,
+    Image, Alert
 } from 'react-native';
 import Svg, {
   Circle,
@@ -18,27 +20,73 @@ import Svg, {
   Rect,
   Stop,
 } from 'react-native-svg';
+import avatars from '../../assets/Avatar/image.png';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {api} from '../../api';
-function SignUpScreen() {
+import {useDispatch, useSelector} from "react-redux";
+import * as actions from '../../actions/auth.actions';
+function SignUpScreen({location}) {
   const {t} = useTranslation('common');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const inviterLoading = useSelector(state => state.auth.loadings.inviter);
+  const inviter = useSelector(state => state.auth.inviter);
   const [signUpStatus, setSignUpStatus] = useState(null);
   const [state, setState] = useState({
+      referral: '',
     phone: '',
     last_name: '',
     email: '',
     password: '',
   });
-  const {last_name, phone, email, password} = state;
+  const {referral, last_name, phone, email, password} = state;
   const handleOnchanges = (text, input) => {
     setState(prevState => ({...prevState, [input]: text}));
   };
+
+    const referralName = useMemo(() => {
+        let referral = '';
+        if (location) {
+            const searchParams = new URLSearchParams(location.search);
+            const ref = searchParams.get('ref');
+            if (ref) {
+                referral = ref;
+            }
+        }
+        return referral;
+    }, [location]);
+    const getInviterByName = useCallback(
+        name => {
+            //console.log(name)
+            dispatch(actions.inviter(name));
+        },
+        [dispatch],
+    );
+    useEffect(() => {
+        if (referralName) {
+            getInviterByName(referralName);
+        }
+        return () => {
+            dispatch(actions.clearInviter());
+        };
+    }, [dispatch, referralName, getInviterByName]);
+
+    const handleOnBlurReferralField = () => {
+        const inviterName = referral;
+        console.log(inviterName);
+        if (inviterName) {
+            getInviterByName(inviterName);
+        } else {
+            dispatch(actions.clearInviter());
+        }
+    };
+
   const handleOnSubmit = () => {
     setSignUpStatus('progress');
     api
       .signUp({
+          inviter: referral,
         last_name: last_name,
         phone: phone,
         email: email,
@@ -47,100 +95,196 @@ function SignUpScreen() {
       .then(() => {
         setSignUpStatus('successful');
       })
-      .catch(() => {
+      .catch((err) => {
         setSignUpStatus('failed');
+        Alert.alert(err.message)
       });
   };
 
   // TODO: refactoring
   if (signUpStatus === 'successful') {
-    return navigation.navigate('Auth');
+    return navigation.navigate('Otp', {phone:phone, email: email});
   }
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={styles.logo}>
-          <Svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="181"
-            height="181"
-            viewBox="0 0 181 181"
-            fill="none">
-            <G id="Logo">
-              <G id="Ellipse 13" filter="url(#filter0_d_41_4026)">
-                <Circle cx="90.4824" cy="77.3104" r="54.6207" fill="white" />
-              </G>
-              <G id="help-svgrepo-com 1">
-                <Path
-                  id="primary"
-                  d="M89.9999 46.1666C83.9017 46.1666 77.9403 47.975 72.8698 51.363C67.7993 54.751 63.8473 59.5665 61.5136 65.2006C59.1799 70.8346 58.5693 77.0342 59.759 83.0152C60.9487 88.9963 63.8853 94.4903 68.1975 98.8024C72.5096 103.115 78.0035 106.051 83.9846 107.241C89.9657 108.431 96.1653 107.82 101.799 105.486C107.433 103.153 112.249 99.2006 115.637 94.13C119.025 89.0595 120.833 83.0982 120.833 77C120.833 72.9509 120.036 68.9414 118.486 65.2006C116.937 61.4597 114.666 58.0606 111.802 55.1975C108.939 52.3344 105.54 50.0632 101.799 48.5137C98.0584 46.9642 94.049 46.1666 89.9999 46.1666ZM89.9999 86.25C88.1704 86.25 86.382 85.7075 84.8609 84.691C83.3397 83.6746 82.1541 82.23 81.454 80.5398C80.7539 78.8496 80.5707 76.9897 80.9276 75.1954C81.2846 73.401 82.1655 71.7529 83.4592 70.4592C84.7528 69.1656 86.401 68.2846 88.1953 67.9277C89.9896 67.5708 91.8495 67.754 93.5397 68.4541C95.2299 69.1542 96.6746 70.3398 97.691 71.8609C98.7074 73.3821 99.2499 75.1705 99.2499 77C99.2499 79.4532 98.2754 81.806 96.5406 83.5407C94.8059 85.2754 92.4532 86.25 89.9999 86.25Z"
-                  fill="black"
-                />
-                <Path
-                  id="secondary"
-                  d="M89.9999 46.1666C86.0919 46.1571 82.2185 46.9003 78.5916 48.3558L84.7583 69.4767C86.2891 68.3811 88.1177 67.7788 89.9999 67.75C91.9188 67.7584 93.7898 68.3498 95.3649 69.4458L101.532 48.3558C97.8662 46.8847 93.9495 46.1412 89.9999 46.1666ZM89.9999 107.833C93.908 107.843 97.7813 107.1 101.408 105.644L95.2416 84.5233C93.7108 85.6188 91.8821 86.2212 89.9999 86.25C88.081 86.2416 86.21 85.6502 84.6349 84.5541L78.4683 105.644C82.1337 107.115 86.0504 107.859 89.9999 107.833ZM120.833 77C120.843 73.0919 120.1 69.2186 118.644 65.5917L97.5233 71.7583C98.6188 73.2891 99.2211 75.1178 99.2499 77C99.2415 78.9189 98.6501 80.7899 97.5541 82.365L118.644 88.5317C120.115 84.8662 120.859 80.9495 120.833 77ZM59.1666 77C59.157 80.9081 59.9003 84.7814 61.3558 88.4083L82.4766 82.2416C81.3811 80.7108 80.7787 78.8822 80.7499 77C80.7583 75.0811 81.3498 73.2101 82.4458 71.635L61.3558 65.4683C59.8846 69.1337 59.1411 73.0505 59.1666 77Z"
-                  fill="#D1D1D1"
-                />
-              </G>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.logobg}>
-          <Svg
-            width="416"
-            height="183"
-            viewBox="0 0 416 183"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <Mask
-              id="mask0_517_4535"
-              style="mask-type:alpha"
-              maskUnits="userSpaceOnUse"
-              x="4"
-              y="0"
-              width="408"
-              height="175">
-              <Rect x="4" width="408" height="175" fill="#C4C4C4" />
-            </Mask>
-            <G mask="url(#mask0_517_4535)">
-              <Path
-                opacity="0.15"
-                d="M291.087 9.2765L-117.48 109.884L-153.034 281.603L469.043 368.787L503.788 120.876L407.814 37.4709C375.804 9.65255 332.266 -0.863647 291.087 9.2765Z"
-                fill="url(#paint0_linear_517_4535)"
-              />
-              <Path
-                opacity="0.15"
-                d="M274.97 113.856L-75.0399 200.332L-104.611 343.259L411.993 415.662L440.911 209.321L352.921 132.695C331.558 114.091 302.471 107.061 274.97 113.856Z"
-                fill="url(#paint1_linear_517_4535)"
-              />
-            </G>
-            <Defs>
-              <LinearGradient
-                id="paint0_linear_517_4535"
-                x1="385.9"
-                y1="-77.533"
-                x2="196.682"
-                y2="299.435"
-                gradientUnits="userSpaceOnUse">
-                <Stop stopColor="white" />
-                <Stop offset="1" stopColor="white" stopOpacity="0" />
-              </LinearGradient>
-              <LinearGradient
-                id="paint1_linear_517_4535"
-                x1="343.058"
-                y1="44.2192"
-                x2="185.391"
-                y2="357.796"
-                gradientUnits="userSpaceOnUse">
-                <Stop stopColor="white" />
-                <Stop offset="1" stopColor="white" stopOpacity="0" />
-              </LinearGradient>
-            </Defs>
-          </Svg>
-        </View>
-        <View style={styles.title}>
-          <Text style={styles.TextTitle}>Self-Help</Text>
-        </View>
+          {inviterLoading ?(
+              <>
+                  <View style={styles.logo}>
+                      <ActivityIndicator
+                          size="large"
+                          color="#00ff00"
+                          animating={inviterLoading}
+                      />
+                  </View>
+              </>
+          ):(
+              <>
+                  <View>
+                      {inviter ? (
+                          <>
+                              <View style={styles.logo}>
+                                  <View style={styles.titleinviter}>
+                                      <Text style={styles.TextTitleinviter}>{t('signUpPage.inviter.title')}</Text>
+                                  </View>
+                                  {inviter?.avatar ? (
+                                      <Image
+                                          style={{width: 70, height: 70, borderRadius: 50}}
+                                          source={{uri: `http://192.168.0.102/api/user/avatars/${inviter.avatar}`}}
+                                      />
+                                  ):(
+                                      <Image
+                                          style={{width: 70, height: 70}}
+                                          source={avatars}
+                                      />
+                                  )}
+                                  <View style={styles.titleinviter}>
+                                      <Text style={styles.TextTitleinviter}>{inviter.last_name}</Text>
+                                  </View>
+                              </View>
+                              <View style={styles.logobg}>
+                                  <Svg
+                                      width="416"
+                                      height="183"
+                                      viewBox="0 0 416 183"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <Mask
+                                          id="mask0_517_4535"
+                                          style="mask-type:alpha"
+                                          maskUnits="userSpaceOnUse"
+                                          x="4"
+                                          y="0"
+                                          width="408"
+                                          height="175">
+                                          <Rect x="4" width="408" height="175" fill="#C4C4C4" />
+                                      </Mask>
+                                      <G mask="url(#mask0_517_4535)">
+                                          <Path
+                                              opacity="0.15"
+                                              d="M291.087 9.2765L-117.48 109.884L-153.034 281.603L469.043 368.787L503.788 120.876L407.814 37.4709C375.804 9.65255 332.266 -0.863647 291.087 9.2765Z"
+                                              fill="url(#paint0_linear_517_4535)"
+                                          />
+                                          <Path
+                                              opacity="0.15"
+                                              d="M274.97 113.856L-75.0399 200.332L-104.611 343.259L411.993 415.662L440.911 209.321L352.921 132.695C331.558 114.091 302.471 107.061 274.97 113.856Z"
+                                              fill="url(#paint1_linear_517_4535)"
+                                          />
+                                      </G>
+                                      <Defs>
+                                          <LinearGradient
+                                              id="paint0_linear_517_4535"
+                                              x1="385.9"
+                                              y1="-77.533"
+                                              x2="196.682"
+                                              y2="299.435"
+                                              gradientUnits="userSpaceOnUse">
+                                              <Stop stopColor="white" />
+                                              <Stop offset="1" stopColor="white" stopOpacity="0" />
+                                          </LinearGradient>
+                                          <LinearGradient
+                                              id="paint1_linear_517_4535"
+                                              x1="343.058"
+                                              y1="44.2192"
+                                              x2="185.391"
+                                              y2="357.796"
+                                              gradientUnits="userSpaceOnUse">
+                                              <Stop stopColor="white" />
+                                              <Stop offset="1" stopColor="white" stopOpacity="0" />
+                                          </LinearGradient>
+                                      </Defs>
+                                  </Svg>
+                              </View>
+                          </>
+                      ):(
+                          <>
+                              <View style={styles.logo}>
+                                  <Svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="181"
+                                      height="181"
+                                      viewBox="0 0 181 181"
+                                      fill="none">
+                                      <G id="Logo">
+                                          <G id="Ellipse 13" filter="url(#filter0_d_41_4026)">
+                                              <Circle cx="90.4824" cy="77.3104" r="54.6207" fill="white" />
+                                          </G>
+                                          <G id="help-svgrepo-com 1">
+                                              <Path
+                                                  id="primary"
+                                                  d="M89.9999 46.1666C83.9017 46.1666 77.9403 47.975 72.8698 51.363C67.7993 54.751 63.8473 59.5665 61.5136 65.2006C59.1799 70.8346 58.5693 77.0342 59.759 83.0152C60.9487 88.9963 63.8853 94.4903 68.1975 98.8024C72.5096 103.115 78.0035 106.051 83.9846 107.241C89.9657 108.431 96.1653 107.82 101.799 105.486C107.433 103.153 112.249 99.2006 115.637 94.13C119.025 89.0595 120.833 83.0982 120.833 77C120.833 72.9509 120.036 68.9414 118.486 65.2006C116.937 61.4597 114.666 58.0606 111.802 55.1975C108.939 52.3344 105.54 50.0632 101.799 48.5137C98.0584 46.9642 94.049 46.1666 89.9999 46.1666ZM89.9999 86.25C88.1704 86.25 86.382 85.7075 84.8609 84.691C83.3397 83.6746 82.1541 82.23 81.454 80.5398C80.7539 78.8496 80.5707 76.9897 80.9276 75.1954C81.2846 73.401 82.1655 71.7529 83.4592 70.4592C84.7528 69.1656 86.401 68.2846 88.1953 67.9277C89.9896 67.5708 91.8495 67.754 93.5397 68.4541C95.2299 69.1542 96.6746 70.3398 97.691 71.8609C98.7074 73.3821 99.2499 75.1705 99.2499 77C99.2499 79.4532 98.2754 81.806 96.5406 83.5407C94.8059 85.2754 92.4532 86.25 89.9999 86.25Z"
+                                                  fill="black"
+                                              />
+                                              <Path
+                                                  id="secondary"
+                                                  d="M89.9999 46.1666C86.0919 46.1571 82.2185 46.9003 78.5916 48.3558L84.7583 69.4767C86.2891 68.3811 88.1177 67.7788 89.9999 67.75C91.9188 67.7584 93.7898 68.3498 95.3649 69.4458L101.532 48.3558C97.8662 46.8847 93.9495 46.1412 89.9999 46.1666ZM89.9999 107.833C93.908 107.843 97.7813 107.1 101.408 105.644L95.2416 84.5233C93.7108 85.6188 91.8821 86.2212 89.9999 86.25C88.081 86.2416 86.21 85.6502 84.6349 84.5541L78.4683 105.644C82.1337 107.115 86.0504 107.859 89.9999 107.833ZM120.833 77C120.843 73.0919 120.1 69.2186 118.644 65.5917L97.5233 71.7583C98.6188 73.2891 99.2211 75.1178 99.2499 77C99.2415 78.9189 98.6501 80.7899 97.5541 82.365L118.644 88.5317C120.115 84.8662 120.859 80.9495 120.833 77ZM59.1666 77C59.157 80.9081 59.9003 84.7814 61.3558 88.4083L82.4766 82.2416C81.3811 80.7108 80.7787 78.8822 80.7499 77C80.7583 75.0811 81.3498 73.2101 82.4458 71.635L61.3558 65.4683C59.8846 69.1337 59.1411 73.0505 59.1666 77Z"
+                                                  fill="#D1D1D1"
+                                              />
+                                          </G>
+                                      </G>
+                                  </Svg>
+                              </View>
+                              <View style={styles.logobg}>
+                                  <Svg
+                                      width="416"
+                                      height="183"
+                                      viewBox="0 0 416 183"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <Mask
+                                          id="mask0_517_4535"
+                                          style="mask-type:alpha"
+                                          maskUnits="userSpaceOnUse"
+                                          x="4"
+                                          y="0"
+                                          width="408"
+                                          height="175">
+                                          <Rect x="4" width="408" height="175" fill="#C4C4C4" />
+                                      </Mask>
+                                      <G mask="url(#mask0_517_4535)">
+                                          <Path
+                                              opacity="0.15"
+                                              d="M291.087 9.2765L-117.48 109.884L-153.034 281.603L469.043 368.787L503.788 120.876L407.814 37.4709C375.804 9.65255 332.266 -0.863647 291.087 9.2765Z"
+                                              fill="url(#paint0_linear_517_4535)"
+                                          />
+                                          <Path
+                                              opacity="0.15"
+                                              d="M274.97 113.856L-75.0399 200.332L-104.611 343.259L411.993 415.662L440.911 209.321L352.921 132.695C331.558 114.091 302.471 107.061 274.97 113.856Z"
+                                              fill="url(#paint1_linear_517_4535)"
+                                          />
+                                      </G>
+                                      <Defs>
+                                          <LinearGradient
+                                              id="paint0_linear_517_4535"
+                                              x1="385.9"
+                                              y1="-77.533"
+                                              x2="196.682"
+                                              y2="299.435"
+                                              gradientUnits="userSpaceOnUse">
+                                              <Stop stopColor="white" />
+                                              <Stop offset="1" stopColor="white" stopOpacity="0" />
+                                          </LinearGradient>
+                                          <LinearGradient
+                                              id="paint1_linear_517_4535"
+                                              x1="343.058"
+                                              y1="44.2192"
+                                              x2="185.391"
+                                              y2="357.796"
+                                              gradientUnits="userSpaceOnUse">
+                                              <Stop stopColor="white" />
+                                              <Stop offset="1" stopColor="white" stopOpacity="0" />
+                                          </LinearGradient>
+                                      </Defs>
+                                  </Svg>
+                              </View>
+                              <View style={styles.title}>
+                                  <Text style={styles.TextTitle}>Self-Help</Text>
+                              </View>
+                          </>
+                      )}
+                  </View>
+              </>
+          )}
         <ScrollView
           contentContainerStyle={{width: '100%', flexGrow: 1}}
           contentInsetAdjustmentBehavior="automatic">
@@ -176,6 +320,19 @@ function SignUpScreen() {
                 alignItems: 'center',
                 marginHorizontal: 20,
               }}>
+                <TextInput
+                    placeholder={`${t('signUpPage.input.inviter')}`}
+                    onChangeText={text => handleOnchanges(text, 'referral')}
+                    onBlur={handleOnBlurReferralField}
+                    style={{
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        height: 60,
+                        borderColor: '#D7D7D7',
+                        marginBottom: 25,
+                        width: '100%',
+                    }}
+                />
               <TextInput
                 placeholder={`${t('signUpPage.input.lastname')}`}
                 onChangeText={text => handleOnchanges(text, 'last_name')}
@@ -234,9 +391,7 @@ function SignUpScreen() {
                 marginTop: 10,
               }}>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Otp', {phone});
-                }}>
+                onPress={handleOnSubmit}>
                 <Svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="356"
@@ -333,12 +488,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
+    titleinviter:{
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
   TextTitle: {
     marginTop: 250,
     fontWeight: '600',
-    fontSize: 35,
+    fontSize: 20,
     color: '#FFFFFF',
     textAlignLast: 'center',
   },
+    TextTitleinviter:{
+        fontWeight: '600',
+        fontSize: 17,
+        color: '#FFFFFF',
+        textAlignLast: 'center',
+    }
 });
 export default SignUpScreen;
