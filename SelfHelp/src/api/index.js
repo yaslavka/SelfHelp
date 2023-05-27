@@ -9,6 +9,7 @@ import {Platform} from 'react-native';
 export const baseInstance = axios.create({
   baseURL: 'http://192.168.0.101:80/api',
 });
+export const baseURLAvatar = 'http://192.168.0.101/api/user/avatars'
 baseInstance.interceptors.request.use(
   async config => {
     const token = await getAccessToken();
@@ -108,5 +109,8 @@ export const api = {
             },
             body: createFormData(avatar),
         });
+    },
+    async getChangeuser(data) {
+        return await baseInstance.post('/user/info', data);
     },
 };

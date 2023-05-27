@@ -15,7 +15,7 @@ import * as actions from '../../actions/app.actions';
 import {useNavigation} from '@react-navigation/native';
 import Svg, {Path} from 'react-native-svg';
 import StructureMap from './structureMap';
-import {api} from "../../api";
+import {api, baseURLAvatar} from "../../api";
 import {useTranslation} from "react-i18next";
 
 function StructureScreen() {
@@ -85,7 +85,7 @@ function StructureScreen() {
                       </View>
                       {userInfo?.avatar ?(
                           <Image
-                              source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                              source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                               style={{
                                   width: 52.99,
                                   height: 52.99,

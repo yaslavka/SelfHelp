@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../actions/app.actions';
 import PayDeskMap from "./PayDeskMap";
 import {useTranslation} from "react-i18next";
-import {api} from "../../api";
+import {api, baseURLAvatar} from "../../api";
 
 function PayDeskScreen() {
     const {t} = useTranslation('common');
@@ -91,7 +91,7 @@ function PayDeskScreen() {
                           />
                       ):(
                           <Image
-                              source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                              source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                               style={{
                                   width: 52.99,
                                   height: 52.99,

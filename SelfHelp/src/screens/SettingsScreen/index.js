@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import Svg, {Path, Rect} from 'react-native-svg';
 import {useTranslation} from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {baseURLAvatar} from "../../api";
 
 function SettingsScreen() {
   const navigation = useNavigation();
@@ -82,7 +83,7 @@ function SettingsScreen() {
                                       {userInfo.avatar?(
                                           <>
                                               <Image
-                                                  source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                                                  source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                                                   style={{
                                                       width: 60,
                                                       height: 60,

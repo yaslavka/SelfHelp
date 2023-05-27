@@ -3,6 +3,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import structureavatar from '../../assets/Avatar/structureavatar/image.png';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
+import {baseURLAvatar} from "../../api";
 
 function StructureMap3({item, t}) {
   const navigation = useNavigation();
@@ -21,7 +22,7 @@ function StructureMap3({item, t}) {
           {item.avatar ? (
               <View style={{borderRadius: 50, borderWidth: 3, borderStyle: 'solid', zIndex: 1, borderColor: '#1563FF'}}>
                   <Image
-                      source={{uri: `http://192.168.0.100/api/user/avatars/${item.avatar}`}}
+                      source={{uri: `${baseURLAvatar}/${item.avatar}`}}
                       style={{
                           width: 46,
                           height: 46,

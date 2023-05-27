@@ -17,7 +17,7 @@ import * as actions from '../../actions/app.actions';
 import {useNavigation} from '@react-navigation/native';
 import Svg, {Path} from 'react-native-svg';
 import avatars from '../../assets/Avatar/image.png';
-import {api} from "../../api";
+import {api, baseURLAvatar} from "../../api";
 import {useTranslation} from "react-i18next";
 
 function StructureProfile({
@@ -94,7 +94,7 @@ function StructureProfile({
                               </View>
                               {userInfo?.avatar ?(
                                   <Image
-                                      source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                                      source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                                       style={{
                                           width: 52.99,
                                           height: 52.99,
@@ -175,7 +175,7 @@ function StructureProfile({
                                       }}>
                                       {dataUser.avatar? (
                                           <Image
-                                              source={{uri: `http://192.168.0.100/api/user/avatars/${dataUser.avatar}`}}
+                                              source={{uri: `${baseURLAvatar}/${dataUser.avatar}`}}
                                               style={{
                                                   width: 130,
                                                   height: 130,
@@ -284,7 +284,7 @@ function StructureProfile({
                                                       }}>
                                                       <View>
                                                           {dataUser.avatar?(
-                                                              <Image source={{uri: `http://192.168.0.100/api/user/avatars/${dataUser.avatar}`}} style={{width: 46, height: 46, borderRadius: 50}} />
+                                                              <Image source={{uri: `${baseURLAvatar}/${dataUser.avatar}`}} style={{width: 46, height: 46, borderRadius: 50}} />
                                                           ):(
                                                               <Image source={avatars} style={{width: 46, height: 46}} />
                                                           )}

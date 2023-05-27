@@ -17,7 +17,7 @@ import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 import {Table, Rows, TableWrapper, Col} from 'react-native-table-component';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from "react-i18next";
-import {api} from "../../api";
+import {api, baseURLAvatar} from "../../api";
 
 function ReferralScreen() {
   const navigation = useNavigation();
@@ -110,7 +110,7 @@ function ReferralScreen() {
                       </View>
                       {userInfo?.avatar ?(
                           <Image
-                              source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                              source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                               style={{
                                   width: 52.99,
                                   height: 52.99,

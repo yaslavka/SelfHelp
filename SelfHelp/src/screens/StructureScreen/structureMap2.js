@@ -4,6 +4,7 @@ import structureavatar from '../../assets/Avatar/structureavatar/image.png';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import StructureMap3 from './structureMap3';
+import {baseURLAvatar} from "../../api";
 
 function StructureMap2({item, struct, t}) {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ function StructureMap2({item, struct, t}) {
           {item.avatar ? (
               <View style={{borderRadius: 50, borderWidth: 3, borderStyle: 'solid', zIndex: 1, borderColor: '#1563FF'}}>
                   <Image
-                      source={{uri: `http://192.168.0.100/api/user/avatars/${item.avatar}`}}
+                      source={{uri: `${baseURLAvatar}/${item.avatar}`}}
                       style={{
                           width: 46,
                           height: 46,

@@ -24,7 +24,7 @@ import {
   Col,
 } from 'react-native-table-component';
 import {useTranslation} from "react-i18next";
-import {api} from "../../api";
+import {api, baseURLAvatar} from "../../api";
 import moment from "moment";
 import * as ImagePicker from 'react-native-image-picker';
 
@@ -133,7 +133,7 @@ function ProfileScreen() {
                       </View>
                       {userInfo?.avatar ?(
                           <Image
-                              source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                              source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                               style={{
                                   width: 52.99,
                                   height: 52.99,
@@ -169,7 +169,7 @@ function ProfileScreen() {
                                       {userInfo.avatar?(
                                           <>
                                               <Image
-                                                  source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                                                  source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
                                                   style={{
                                                       width: 121.019,
                                                       height: 121.019,

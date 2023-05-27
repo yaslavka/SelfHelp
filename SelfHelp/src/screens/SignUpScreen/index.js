@@ -23,7 +23,7 @@ import Svg, {
 import avatars from '../../assets/Avatar/image.png';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
-import {api} from '../../api';
+import {api, baseURLAvatar} from '../../api';
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from '../../actions/auth.actions';
 function SignUpScreen({location}) {
@@ -130,7 +130,7 @@ function SignUpScreen({location}) {
                                   {inviter?.avatar ? (
                                       <Image
                                           style={{width: 70, height: 70, borderRadius: 50}}
-                                          source={{uri: `http://192.168.0.102/api/user/avatars/${inviter.avatar}`}}
+                                          source={{uri: `${baseURLAvatar}/${inviter.avatar}`}}
                                       />
                                   ):(
                                       <Image
