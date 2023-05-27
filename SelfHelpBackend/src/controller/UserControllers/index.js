@@ -2,6 +2,7 @@ const {OtpModel}=require('../../models/OtpModel/index')
 const bcrypt = require("bcrypt");
 const {UsersTable} = require('../../models/UsersModel/index')
 const jwt = require("jsonwebtoken");
+const {TypeMatrix} = require("../../models/TarifModel");
 const decode='random_key'
 const generateJwt = (id, email, last_name, inviter_id, phone) => {
     return jwt.sign({id:id, email: email, last_name: last_name, inviter_id: inviter_id, phone: phone},decode);
@@ -60,6 +61,34 @@ class UserController {
             phone: phone,
             inviter_id: inviterUser.id,
         });
+        const user =await UsersTable.findOne({where: {phone:phone}})
+        await TypeMatrix.create({
+            name: "START TRX-",
+            summ: 150,
+            canBuy: true,
+            count: 0,
+            isActive: false,
+            userId:user.id
+
+        })
+        await TypeMatrix.create({
+            name: "INVEST TRX-",
+            summ: 1500,
+            canBuy: false,
+            count: 0,
+            isActive: false,
+            userId:user.id
+
+        })
+        await TypeMatrix.create({
+            name: "PROFI TRX-",
+            summ: 15000,
+            canBuy: false,
+            count: 0,
+            isActive: false,
+            userId:user.id
+
+        })
         return res.json(true)
     }
     async sendSms(req, res){
@@ -117,7 +146,6 @@ class UserController {
 
     }
     async pinsetup(req,res){
-        console.log(req.body)
         const { authorization } = req.headers;
         const {pin}=req.body
         if (!authorization){
@@ -136,6 +164,10 @@ class UserController {
             return res.status(500).json({message: error})
         }
 
+    }
+    async joinTarif(req, res){
+        console.log(req.body)
+        return res.status(500).json({message: 'на вашем счете не достаточно средств'})
     }
     async userInfo(req, res){
         const { authorization } = req.headers;

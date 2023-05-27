@@ -1,22 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  RefreshControl,
+    View,
+    Text,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    RefreshControl, Alert,
 } from 'react-native';
 import bg from '../../assets/background/image.png';
 import profile from '../../assets/profile/image.png';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../actions/app.actions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import PayDeskMap from "./PayDeskMap";
+import {useTranslation} from "react-i18next";
+import {api} from "../../api";
 
 function PayDeskScreen() {
+    const {t} = useTranslation('common');
   const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
+  const [matrixTypes, setMatrixTypes] = useState(null);
+  const userInfo = useSelector(state => state.app.user);
+
+    useEffect(()=>{
+        api
+            .getMatrixTypes()
+            .then(response=>{
+                setMatrixTypes(response)
+            })
+            .catch(err=>{
+                Alert.alert(err.message)
+            })
+    },[])
   const onRefresh = async () => {
     try {
       setRefresh(true);
@@ -43,427 +58,57 @@ function PayDeskScreen() {
             left: 0,
           }}
         />
-        <View
-          style={{
-            marginTop: 40,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            display: 'flex',
-            flexDirection: 'row',
-            marginHorizontal: 25,
-            marginBottom: 25,
-          }}>
-          <View>
-            <Text style={{color: '#FFF', fontWeight: '700', fontSize: 22}}>
-              Баланс:
-            </Text>
-            <Text style={{color: '#FFF', fontWeight: '500', fontSize: 17}}>
-              3,530 $
-            </Text>
-            <Text style={{color: '#FFF', fontWeight: '500', fontSize: 17}}>
-              55,49231 TRX
-            </Text>
-          </View>
-          <Image
-            source={profile}
-            style={{
-              width: 52.99,
-              height: 52.99,
-            }}
-          />
-        </View>
-        <View style={{backgroundColor: '#282828', height: 35}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 20,
-              fontWeight: '700',
-              paddingVertical: 5,
-              paddingHorizontal: 25,
-            }}>
-            START
-          </Text>
-        </View>
-
-        <View style={{backgroundColor: '#D6D6D6'}}>
-          <View
-            style={{
-              paddingHorizontal: 25,
-              paddingVertical: 5,
-              alignItems: 'flex-start',
-            }}>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  INPUT:
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    TRX:{' '}
-                  </Text>
-                  <Text> 0.01 </Text>
-                </View>
-              </View>
-              <MaterialCommunityIcons
-                name={'arrow-right-thick'}
-                size={35}
-                color={'rgba(0, 0, 0, 0.25)'}
-              />
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  {' '}
-                  OUTPUT:{' '}
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    {' '}
-                    TRX:{' '}
-                  </Text>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                    {' '}
-                    0.01{' '}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Members:{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                12
-              </Text>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Budget: TRX{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                250
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingHorizontal: 25,
-              paddingVertical: 10,
-            }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#1563FF',
-                width: '100%',
-                height: 50,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '600'}}>
-                JOIN
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={{backgroundColor: '#8C8C8C', height: 35}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 20,
-              fontWeight: '700',
-              paddingVertical: 5,
-              paddingHorizontal: 25,
-            }}>
-            INVEST
-          </Text>
-        </View>
-
-        <View style={{backgroundColor: '#D6D6D6'}}>
-          <View
-            style={{
-              paddingHorizontal: 25,
-              paddingVertical: 5,
-              alignItems: 'flex-start',
-            }}>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  INPUT:
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    TRX:{' '}
-                  </Text>
-                  <Text> 0.01 </Text>
-                </View>
-              </View>
-              <MaterialCommunityIcons
-                name={'arrow-right-thick'}
-                size={35}
-                color={'rgba(0, 0, 0, 0.25)'}
-              />
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  {' '}
-                  OUTPUT:{' '}
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    {' '}
-                    TRX:{' '}
-                  </Text>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                    {' '}
-                    0.01{' '}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Members:{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                12
-              </Text>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Budget: TRX{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                250
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingHorizontal: 25,
-              paddingVertical: 10,
-            }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#4F4F4F',
-                width: '100%',
-                height: 50,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '600'}}>
-                JOIN
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={{backgroundColor: '#8C8C8C', height: 35}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 20,
-              fontWeight: '700',
-              paddingVertical: 5,
-              paddingHorizontal: 25,
-            }}>
-            PROFI
-          </Text>
-        </View>
-
-        <View style={{backgroundColor: '#D6D6D6'}}>
-          <View
-            style={{
-              paddingHorizontal: 25,
-              paddingVertical: 5,
-              alignItems: 'flex-start',
-            }}>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-evenly',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  INPUT:
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    TRX:{' '}
-                  </Text>
-                  <Text> 0.01 </Text>
-                </View>
-              </View>
-              <MaterialCommunityIcons
-                name={'arrow-right-thick'}
-                size={35}
-                color={'rgba(0, 0, 0, 0.25)'}
-              />
-              <View>
-                <Text
-                  style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                  {' '}
-                  OUTPUT:{' '}
-                </Text>
-                <View
-                  style={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    display: 'flex',
-                    flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                    {' '}
-                    TRX:{' '}
-                  </Text>
-                  <Text
-                    style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                    {' '}
-                    0.01{' '}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Members:{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                12
-              </Text>
-            </View>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                display: 'flex',
-                flexDirection: 'row',
-              }}>
-              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 17}}>
-                Budget: TRX{' '}
-              </Text>
-              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 16}}>
-                {' '}
-                250
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingHorizontal: 25,
-              paddingVertical: 10,
-            }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#4F4F4F',
-                width: '100%',
-                height: 50,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '600'}}>
-                JOIN
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          {userInfo && (
+              <>
+                  <View
+                      style={{
+                          marginTop: 40,
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          display: 'flex',
+                          flexDirection: 'row',
+                          marginHorizontal: 25,
+                          marginBottom: 25,
+                      }}>
+                      <View>
+                          <Text style={{color: '#FFF', fontWeight: '700', fontSize: 22}}>
+                              {t('homescreen.userInfo.balance')}
+                          </Text>
+                          <Text style={{color: '#FFF', fontWeight: '500', fontSize: 17}}>
+                              {userInfo.balance} $
+                          </Text>
+                          <Text style={{color: '#FFF', fontWeight: '500', fontSize: 17}}>
+                              {userInfo.trx} TRX
+                          </Text>
+                      </View>
+                      {!userInfo?.avatar?(
+                          <Image
+                              source={profile}
+                              style={{
+                                  width: 52.99,
+                                  height: 52.99,
+                              }}
+                          />
+                      ):(
+                          <Image
+                              source={{uri: `http://192.168.0.100/api/user/avatars/${userInfo.avatar}`}}
+                              style={{
+                                  width: 52.99,
+                                  height: 52.99,
+                                  borderRadius: 50
+                              }}
+                          />
+                      )}
+                  </View>
+                  {matrixTypes && (
+                      <>
+                          {matrixTypes.map((matrix)=>(
+                              <PayDeskMap t={t} matrix={matrix} key={matrix.id}/>
+                          ))}
+                      </>
+                  )}
+              </>
+          )}
       </ScrollView>
     </SafeAreaView>
   );

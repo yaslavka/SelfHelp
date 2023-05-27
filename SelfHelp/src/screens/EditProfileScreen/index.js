@@ -9,12 +9,15 @@ import {
   TextInput,
 } from 'react-native';
 import Svg, {Circle, Path, Rect} from 'react-native-svg';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import * as actions from '../../actions/app.actions';
+import {useTranslation} from "react-i18next";
 
 function EditProfile() {
   const dispatch = useDispatch();
   const [refresh, setRefresh] = useState(false);
+  const userInfo = useSelector(state => state.app.user);
+  const {t} = useTranslation('common');
   const onRefresh = async () => {
     try {
       setRefresh(true);

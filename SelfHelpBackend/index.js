@@ -7,6 +7,9 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const path = require("path");
 const UserController = require('./src/controller/UserControllers/index')
+const TarifController = require('./src/controller/TarifController')
+const UserItemCounts = require('./src/controller/UserItemCounts')
+const UserStructure = require('./src/controller/UserStructure/index')
 
 app.use(cors());
 const server = http.createServer(app);
@@ -19,6 +22,13 @@ app.post("/api/user/registration_sms", UserController.sendSms)
 app.post("/api/user/registration_sms/otp", UserController.veryfiOtp)
 app.post("/api/user/login", UserController.login)
 app.post('/api/user/pin_setup/pin', UserController.pinsetup)
+app.post('/api/user/join_tarifs', UserController.joinTarif)
+app.use('/api/matrix/type', TarifController.tarifs)
+app.use('/api/user/item_counts', UserItemCounts.userItem)
+app.use('/api/user/item_bonuses', UserItemCounts.userItemBonuses)
+app.use('/api/user/user_structure', UserStructure.userStructure)
+app.use('/api/user/user_structure_id', UserStructure.userStructureId)
+app.use('/api/matrix/type_map', TarifController.tarifMap)
 app.use('/api/user', UserController.userInfo)
 const start = async ()=>{
     try {

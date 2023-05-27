@@ -36,5 +36,72 @@
     "otps": "Enter the OTP Code",
     "text": "Код безопасности используется для проверки каждой транзакции, чтобы быть более безопасным",
     "error": "Неверный код"
+  },
+  "homescreen": {
+    "userInfo": {
+      "balance": " Баланс:",
+      "nexst": "Ваше продвижение в системе",
+      "tarifs": "Тарифы:",
+      "countUsers": "К-во участников:"
+    },
+    "buttons": {
+      "join": "присоеденится",
+      "Referral": " Ваши Рефералы",
+      "active": "Ваша очередь:"
+    }
+  },
+  "PayDesk": {
+    "tarif1": {
+      "input": "Вход",
+      "output": "Выход",
+      "members": "Участники",
+      "budget": "Бюджет"
+    }
+  },
+  "referallscreen": {
+    "reflink": "Ваш реферальный код",
+    "All": "Все",
+    "placeholder": "Укажите логин в настройках",
+    "Referrals": "партнеры",
+    "Quantity": "Количество",
+    "Bonuses": "Бонусы",
+    "levels": "уровень",
+    "program": "Ознакомьтесь с правилами реферальной программы",
+    "button": "Моя структура"
+  },
+  "mystructure": {
+    "mystructure": "Моя Структура",
+    "profile": "Профиль"
+  },
+  "StructureProfile": {
+    "Login": "Логин",
+    "registration": "Дата регистрации",
+    "Sponsor": "Наставник",
+    "Promotion":"Продвижение в системе",
+    "tarifs": "Тарифы",
+    "turn": "номер в очереди"
+  },
+  "profile": {
+    "Login": "Логин",
+    "email": "Емаил",
+    "phone": "Телефон",
+    "edit": "Редактировать",
+    "username": "укажите логин в настройках"
+  },
+  "profileEdit": {
+    "buttons": {
+      "edit": "Редактировать",
+      "Referral": "реферальный код",
+      "items": "партнера"
+    },
+    "AppSetting": {
+      "AppSetting": "Настройки приложения",
+      "SecurityPin": "Установка пин кода",
+      "Help": "Помощь",
+      "TermCondition": "Условия использования",
+      "PrivacyPolicy": "Политика конф-ности",
+      "Contact": "Контакты",
+      "LogOut": "Выход"
+    }
   }
 }

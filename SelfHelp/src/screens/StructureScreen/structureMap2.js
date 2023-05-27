@@ -5,7 +5,7 @@ import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import StructureMap3 from './structureMap3';
 
-function StructureMap2({item}) {
+function StructureMap2({item, struct, t}) {
   const [open, setOpen] = useState(false);
   const navigation = useNavigation();
   return (
@@ -20,14 +20,28 @@ function StructureMap2({item}) {
           width: '100%',
           paddingHorizontal: 5,
         }}>
-        <Image
-          source={structureavatar}
-          style={{
-            width: 46,
-            height: 46,
-            zIndex: 1,
-          }}
-        />
+          {item.avatar ? (
+              <View style={{borderRadius: 50, borderWidth: 3, borderStyle: 'solid', zIndex: 1, borderColor: '#1563FF'}}>
+                  <Image
+                      source={{uri: `http://192.168.0.100/api/user/avatars/${item.avatar}`}}
+                      style={{
+                          width: 46,
+                          height: 46,
+                          borderRadius: 50,
+                          zIndex: 1,
+                      }}
+                  />
+              </View>
+          ):(
+              <Image
+                  source={structureavatar}
+                  style={{
+                      width: 46,
+                      height: 46,
+                      zIndex: 1,
+                  }}
+              />
+          )}
         <View
           style={{
             borderWidth: 1,
@@ -51,7 +65,7 @@ function StructureMap2({item}) {
               paddingHorizontal: 10,
             }}>
             <View>
-              <Text>{item.name}</Text>
+              <Text>{item.last_name}</Text>
             </View>
             <View>
               <TouchableOpacity
@@ -71,7 +85,7 @@ function StructureMap2({item}) {
                     fontSize: 10,
                     textAlign: 'center',
                   }}>
-                  Профиль
+                    {t('mystructure.profile')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -107,9 +121,9 @@ function StructureMap2({item}) {
       </View>
       {open && (
         <>
-          {item.ref3.map(item3 => (
+          {struct?.item_3.map(item3 => (
             <>
-              <StructureMap3 item={item3} key={item3.id} />
+              <StructureMap3 item={item3} key={item3.id} t={t}/>
             </>
           ))}
         </>

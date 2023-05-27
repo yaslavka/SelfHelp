@@ -4,7 +4,7 @@ import structureavatar from '../../assets/Avatar/structureavatar/image.png';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 
-function StructureMap3({item}) {
+function StructureMap3({item, t}) {
   const navigation = useNavigation();
   return (
     <>
@@ -18,14 +18,28 @@ function StructureMap3({item}) {
           width: '100%',
           paddingHorizontal: 5,
         }}>
-        <Image
-          source={structureavatar}
-          style={{
-            width: 46,
-            height: 46,
-            zIndex: 1,
-          }}
-        />
+          {item.avatar ? (
+              <View style={{borderRadius: 50, borderWidth: 3, borderStyle: 'solid', zIndex: 1, borderColor: '#1563FF'}}>
+                  <Image
+                      source={{uri: `http://192.168.0.100/api/user/avatars/${item.avatar}`}}
+                      style={{
+                          width: 46,
+                          height: 46,
+                          borderRadius: 50,
+                          zIndex: 1,
+                      }}
+                  />
+              </View>
+          ):(
+              <Image
+                  source={structureavatar}
+                  style={{
+                      width: 46,
+                      height: 46,
+                      zIndex: 1,
+                  }}
+              />
+          )}
         <View
           style={{
             borderWidth: 1,
@@ -49,7 +63,7 @@ function StructureMap3({item}) {
               paddingHorizontal: 10,
             }}>
             <View>
-              <Text>{item.name}</Text>
+              <Text>{item.last_name}</Text>
             </View>
             <View>
               <TouchableOpacity
@@ -69,7 +83,7 @@ function StructureMap3({item}) {
                     fontSize: 10,
                     textAlign: 'center',
                   }}>
-                  Профиль
+                    {t('mystructure.profile')}
                 </Text>
               </TouchableOpacity>
             </View>
