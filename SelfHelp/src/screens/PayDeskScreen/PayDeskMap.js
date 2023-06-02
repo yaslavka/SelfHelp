@@ -3,7 +3,7 @@ import {Alert, Text, TouchableOpacity, View} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {api} from "../../api";
 
-function PayDeskMap({t, matrix}) {
+function PayDeskMap({t, matrix, setError}) {
 
     const joinTarif = (tarif)=>{
         api.juoinTarifs({tarif:tarif})
@@ -13,7 +13,7 @@ function PayDeskMap({t, matrix}) {
                     .catch(()=>{})
             })
             .catch(err=>{
-                Alert.alert(err.message)
+                setError(err.message)
             })
     }
     return(

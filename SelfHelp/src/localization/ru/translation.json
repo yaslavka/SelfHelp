@@ -25,14 +25,14 @@
   },
   "otp": {
     "otp": "Enter the OTP Code",
-    "otptitle": "Congratulations, you have successfully created a universal\n                password for quick login to the application",
+    "otptitle": "Congratulations, you have successfully created a universal password for quick login to the application",
     "otps": "Enter the OTP Code",
     "text": "мы отправили смс с кодом на номер",
     "error": "Неверный код"
   },
   "pin": {
     "pin": "Установите PIN CODE",
-    "pintitle": "Congratulations, you have successfully created a universal\n                password for quick login to the application",
+    "pintitle": "Congratulations, you have successfully created a universal password for quick login to the application",
     "otps": "Enter the OTP Code",
     "text": "Код безопасности используется для проверки каждой транзакции, чтобы быть более безопасным",
     "error": "Неверный код"
@@ -86,7 +86,12 @@
     "email": "Емаил",
     "phone": "Телефон",
     "edit": "Редактировать",
-    "username": "укажите логин в настройках"
+    "username": "укажите логин в настройках",
+    "Сheckout": "Очередь",
+    "Date": "Дата",
+    "DaysIn": "к-во дней",
+    "YourTRX": "Ваши TRX",
+    "errorAvatar": "размер файла не более 2 Мв"
   },
   "profileEdit": {
     "buttons": {
@@ -111,5 +116,43 @@
       "save": "Сохранить",
       "placeholder": "Установить логин"
     }
+  },
+  "SecurityPin": {
+    "title": "Изминение ПИН КОДА",
+    "text": "Защитный пин-код - это код, который помогает повысить безопасность вашего счета B-Wallet, так что каждая транзакция становится более безопасной",
+    "pin": "изменить пин"
+  },
+  "help": {
+    "headerTitle": "Вопрос/Ответ",
+    "What": "Что такое Self-Help приложение?",
+    "General": "Общая информация",
+    "Request": "Пополнение",
+    "TopUp": "Top Up",
+    "Send": "Выплаты",
+    "ClaimPromo": "Рекламация",
+    "SecurityPin": "Защитный PIN",
+    "Payment": "Оплата"
+  },
+  "ContactS": {
+    "title": "Контакты",
+    "Contact": "Контакты",
+    "text": "Мы всегда готовы помочь вам с понедельника по пятницу с 09.00 утра до 05.00 вечера. Свяжитесь с нами по следующему контакту:"
+  },
+  "wallet": {
+    "buttons": {
+      "exchange": "Обмен",
+      "send": "Вывод",
+      "pyay": "Ввод"
+    }
+  },
+  "exchange": {
+    "title": "Обменный курс:",
+    "For": "For",
+    "Giveback": "Вы отдаете",
+    "Retrieved": "Получаете",
+    "fee": "комисия",
+    "buttons": "Обмен",
+    "all": "Итого",
+    "input": "Сумма"
   }
 }

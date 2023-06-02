@@ -11,7 +11,6 @@ import {
   Modal,
   Alert,
   Pressable,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import * as actions from '../../actions/app.actions';

@@ -28,10 +28,12 @@
     "react-native-charts-wrapper": "^0.5.11",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-element-dropdown": "^2.9.0",
+    "react-native-gifted-charts": "^1.2.42",
     "react-native-image-picker": "^5.4.0",
     "react-native-keychain": "^8.1.1",
     "react-native-otp-inputs": "^7.4.0",
     "react-native-paper": "^5.2.0",
+    "react-native-push-notification": "^8.1.1",
     "react-native-qrcode-svg": "^6.2.0",
     "react-native-reanimated": "^2.14.4",
     "react-native-responsive-screen": "^1.4.2",
@@ -45,7 +47,8 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",
-    "redux-thunk": "^2.4.2"
+    "redux-thunk": "^2.4.2",
+    "victory-native": "^36.6.10"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

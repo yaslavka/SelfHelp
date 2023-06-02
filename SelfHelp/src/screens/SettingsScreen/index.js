@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native';
 import bg from '../../assets/background/image.png';
 import {useDispatch, useSelector} from 'react-redux';

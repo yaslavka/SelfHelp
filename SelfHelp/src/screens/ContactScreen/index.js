@@ -1,16 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity,
-  RefreshControl,
-  TextInput,
 } from 'react-native';
-import Svg, {Circle, Path, Rect} from 'react-native-svg';
+import Svg, {Path, Rect} from 'react-native-svg';
+import {useTranslation} from "react-i18next";
 
 function ContactScreen() {
+    const {t} = useTranslation('common');
   return (
     <>
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -20,12 +19,9 @@ function ContactScreen() {
           <View style={{paddingHorizontal: 25}}>
             <Text
               style={{fontSize: 24, fontWeight: '700', paddingVertical: 20}}>
-              Contact
+                {t('ContactS.Contact')}
             </Text>
-            <Text style={{fontSize: 14, fontWeight: '400', marginBottom: 20}}>
-              We always ready to help you from Monday until Friday on 09.00 AM
-              until 05.00 PM. Contact us with this following contact:
-            </Text>
+            <Text style={{fontSize: 14, fontWeight: '400', marginBottom: 20}}>{t('ContactS.text')}</Text>
             <View
               style={{
                 flexDirection: 'row',

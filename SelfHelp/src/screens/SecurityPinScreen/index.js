@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Svg, {Path} from 'react-native-svg';
+import {useTranslation} from "react-i18next";
 
 function SecurityPinScreen() {
+    const {t} = useTranslation('common');
   return (
     <>
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
@@ -18,11 +20,10 @@ function SecurityPinScreen() {
           <View style={{paddingHorizontal: 25}}>
             <Text
               style={{fontSize: 24, fontWeight: '700', paddingVertical: 20}}>
-              Security Pin
+                {t('SecurityPin.title')}
             </Text>
             <Text style={{fontSize: 14, fontWeight: '400', marginBottom: 20}}>
-              Security Pin is a code that is useful in increasing the security
-              of your B-Wallet account, so that every transaction becomes safer
+                {t('SecurityPin.text')}
             </Text>
 
             <TouchableOpacity onPress={() => {}}>
@@ -59,7 +60,7 @@ function SecurityPinScreen() {
                   </Svg>
                   <Text style={{fontSize: 16, fontWeight: '400'}}>
                     {' '}
-                    Security Pin
+                      {t('SecurityPin.pin')}
                   </Text>
                 </View>
                 <View

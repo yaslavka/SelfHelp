@@ -7,7 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
   RefreshControl,
-  StyleSheet,
 } from 'react-native';
 import bg from '../../assets/background/image.png';
 import profile from '../../assets/profile/image.png';
@@ -92,24 +91,26 @@ function StructureProfile({
                                       {userInfo.trx} TRX
                                   </Text>
                               </View>
-                              {userInfo?.avatar ?(
-                                  <Image
-                                      source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
-                                      style={{
-                                          width: 52.99,
-                                          height: 52.99,
-                                          borderRadius: 50
-                                      }}
-                                  />
-                              ):(
-                                  <Image
-                                      source={profile}
-                                      style={{
-                                          width: 52.99,
-                                          height: 52.99,
-                                      }}
-                                  />
-                              )}
+                              <TouchableOpacity onPress={()=>{navigation.navigate('EditProfile')}}>
+                                  {userInfo?.avatar ?(
+                                      <Image
+                                          source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
+                                          style={{
+                                              width: 52.99,
+                                              height: 52.99,
+                                              borderRadius: 50
+                                          }}
+                                      />
+                                  ):(
+                                      <Image
+                                          source={profile}
+                                          style={{
+                                              width: 52.99,
+                                              height: 52.99,
+                                          }}
+                                      />
+                                  )}
+                              </TouchableOpacity>
                           </View>
                           <View
                               style={{

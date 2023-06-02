@@ -1,40 +1,80 @@
 {
-  "activation_date": null,
-  "active_partners": 0,
-  "avatar": null,
-  "balance": "0.00000000",
-  "createdAt": "2023-05-24T19:08:03.000Z",
-  "email": "Obrubinskii@gmail.com",
-  "first_name": null,
-  "id": 12,
-  "inviter": {
-    "activation_date": null,
-    "active_partners": 0,
-    "avatar": null,
-    "balance": "0.00000000",
-    "createdAt": "2022-10-08T09:52:34.000Z",
-    "email": "vangab44@gmail.com",
-    "first_name": null,
-    "id": 1,
-    "inviter_id": null,
-    "isAdmin": true,
-    "last_name": null,
-    "password": "",
-    "phone": "+79899868206",
-    "pinCode": null,
-    "registration_date": "2022-04-10T00:09:47.000Z",
-    "trx": "0.00000000",
-    "updatedAt": "2022-12-02T00:10:53.000Z",
-    "username": "Admin"
+  "navigation": {
+    "addListener": [
+      Function
+      addListener
+    ],
+    "canGoBack": [
+      Function
+      canGoBack
+    ],
+    "dispatch": [
+      Function
+      dispatch
+    ],
+    "getId": [
+      Function
+      getId
+    ],
+    "getParent": [
+      Function
+      getParent
+    ],
+    "getState": [
+      Function
+      anonymous
+    ],
+    "goBack": [
+      Function
+      anonymous
+    ],
+    "isFocused": [
+      Function
+      isFocused
+    ],
+    "navigate": [
+      Function
+      anonymous
+    ],
+    "pop": [
+      Function
+      anonymous
+    ],
+    "popToTop": [
+      Function
+      anonymous
+    ],
+    "push": [
+      Function
+      anonymous
+    ],
+    "removeListener": [
+      Function
+      removeListener
+    ],
+    "replace": [
+      Function
+      anonymous
+    ],
+    "reset": [
+      Function
+      anonymous
+    ],
+    "setOptions": [
+      Function
+      setOptions
+    ],
+    "setParams": [
+      Function
+      anonymous
+    ]
   },
-  "inviter_id": 1,
-  "isAdmin": false,
-  "last_name": "Ff",
-  "password": "$2b$05$.D2NJQDLmYLNXU1nKRODjOKwDz/p81Kn23jmzYNAEpWm8LNG7k212",
-  "phone": "+79822478977",
-  "pinCode": null,
-  "registration_date": null,
-  "trx": "0.00000000",
-  "updatedAt": "2023-05-24T19:08:03.000Z",
-  "username": null
+  "route": {
+    "key": "StructureProfile-UkxWPIkKuQ_MN9ACzvhPM",
+    "name": "StructureProfile",
+    "params": {
+      "id": 3
+    },
+    "path": undefined
+  }
 }

@@ -4,6 +4,8 @@ const {UsersTable} = require('../../models/UsersModel/index')
 const jwt = require("jsonwebtoken");
 const {TypeMatrix} = require("../../models/TarifModel");
 const decode='random_key'
+const TronWeb = require('tronweb');
+const crypto = require('crypto');
 const generateJwt = (id, email, last_name, inviter_id, phone) => {
     return jwt.sign({id:id, email: email, last_name: last_name, inviter_id: inviter_id, phone: phone},decode);
 };
@@ -89,7 +91,7 @@ class UserController {
             userId:user.id
 
         })
-        return res.json(true)
+
     }
     async sendSms(req, res){
         const {phone, email}=req.body
@@ -166,8 +168,19 @@ class UserController {
 
     }
     async joinTarif(req, res){
-        console.log(req.body)
-        return res.status(500).json({message: 'на вашем счете не достаточно средств'})
+        const privateKey = crypto.randomBytes(32).toString('hex');
+        //console.log("Private Key", privateKey);
+
+        const HttpProvider = TronWeb.providers.HttpProvider;
+        const fullNode = new HttpProvider("https://api.trongrid.io");
+        const solidityNode = new HttpProvider("https://api.trongrid.io");
+        const eventServer = new HttpProvider("https://api.trongrid.io");
+        const tronWeb = new TronWeb(fullNode,solidityNode,eventServer,privateKey);
+
+        const wallet = await tronWeb.createAccount();
+        const balance= await tronWeb.trx.getBalance(wallet.base58)
+        console.log(balance);
+        return res.json(true)
     }
     async userInfo(req, res){
         const { authorization } = req.headers;

@@ -108,24 +108,26 @@ function ReferralScreen() {
                               {userInfo.trx} TRX
                           </Text>
                       </View>
-                      {userInfo?.avatar ?(
-                          <Image
-                              source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
-                              style={{
-                                  width: 52.99,
-                                  height: 52.99,
-                                  borderRadius: 50
-                              }}
-                          />
-                      ):(
-                          <Image
-                              source={profile}
-                              style={{
-                                  width: 52.99,
-                                  height: 52.99,
-                              }}
-                          />
-                      )}
+                      <TouchableOpacity onPress={()=>{navigation.navigate('EditProfile')}}>
+                          {userInfo?.avatar ?(
+                              <Image
+                                  source={{uri: `${baseURLAvatar}/${userInfo.avatar}`}}
+                                  style={{
+                                      width: 52.99,
+                                      height: 52.99,
+                                      borderRadius: 50
+                                  }}
+                              />
+                          ):(
+                              <Image
+                                  source={profile}
+                                  style={{
+                                      width: 52.99,
+                                      height: 52.99,
+                                  }}
+                              />
+                          )}
+                      </TouchableOpacity>
                   </View>
                   <View style={{paddingHorizontal: 25}}>
                       <Text style={{color: '#000000', fontWeight: '700', fontSize: 22}}>

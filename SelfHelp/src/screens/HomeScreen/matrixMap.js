@@ -4,7 +4,7 @@ import avatars from "../../assets/Avatar/image.png";
 import {api} from "../../api";
 import {useTranslation} from "react-i18next";
 
-function MatrixMap({matrix}) {
+function MatrixMap({matrix, setError}) {
     const {t} = useTranslation('common');
     const [tarif, setTarif]=useState(false)
 
@@ -16,7 +16,7 @@ function MatrixMap({matrix}) {
                     .catch(()=>{})
             })
             .catch(err=>{
-                Alert.alert(err.message)
+                setError(err.message)
             })
     }
 

@@ -7,9 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Platform} from 'react-native';
 
 export const baseInstance = axios.create({
-  baseURL: 'http://192.168.0.101:80/api',
+  baseURL: 'http://192.168.0.102/api',
 });
-export const baseURLAvatar = 'http://192.168.0.101/api/user/avatars'
+export const baseURLAvatar = 'http://192.168.0.102/api/user/avatars'
 baseInstance.interceptors.request.use(
   async config => {
     const token = await getAccessToken();
@@ -101,14 +101,14 @@ export const api = {
 
     async updateAvatar(avatar) {
         const token = await getAccessToken();
-        await fetch('http://192.168.0.100:80/api/user/avatar_update', {
-            method: 'post',
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data',
-            },
-            body: createFormData(avatar),
-        });
+         await fetch('http://192.168.0.102/api/user/avatar_update', {
+             method: 'post',
+             headers: {
+                 Authorization: `Bearer ${token}`,
+                 'Content-Type': 'multipart/form-data',
+             },
+             body: createFormData(avatar),
+         });
     },
     async getChangeuser(data) {
         return await baseInstance.post('/user/info', data);
