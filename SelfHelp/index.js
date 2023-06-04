@@ -14,7 +14,7 @@ import {Provider} from 'react-redux';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {name as appName} from './app.json';
 import './src/localization/i18n';
-import * as actions from "./src/actions/app.actions";
+
 dayjs.extend(isBetween);
 dayjs.extend(timezone);
 dayjs.extend(utc);

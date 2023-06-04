@@ -7,9 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Platform} from 'react-native';
 
 export const baseInstance = axios.create({
-  baseURL: 'http://192.168.0.102/api',
+  baseURL: 'http://192.168.0.103/api',
 });
-export const baseURLAvatar = 'http://192.168.0.102/api/user/avatars'
+export const baseURLAvatar = 'http://192.168.0.103/api/user/avatars'
 baseInstance.interceptors.request.use(
   async config => {
     const token = await getAccessToken();
@@ -74,6 +74,9 @@ export const api = {
     async pinCodeSetup(data) {
         return await baseInstance.post('/user/pin_setup/pin', data);
     },
+    async pinCodeVeryfy(data) {
+        return await baseInstance.post('/user/pin_verrif/pin', data);
+    },
   async getUserInfo() {
     return await baseInstance.get('/user');
   },
@@ -101,7 +104,7 @@ export const api = {
 
     async updateAvatar(avatar) {
         const token = await getAccessToken();
-         await fetch('http://192.168.0.102/api/user/avatar_update', {
+         await fetch('http://192.168.0.103/api/user/avatar_update', {
              method: 'post',
              headers: {
                  Authorization: `Bearer ${token}`,

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import * as actions from './src/actions/app.actions';
 import SplashScreen from 'react-native-splash-screen';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,7 +7,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import OtpInput from './src/screens/OTPCodeScreen';
-import OtpPinInput from './src/screens/OTPPinCodeScreen';
 import StructureScreen from './src/screens/StructureScreen';
 import StructureProfile from './src/screens/StructureProfile';
 import SettingsScreen from './src/screens/SettingsScreen';
@@ -29,13 +28,14 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {View} from "react-native-animatable";
+import Pi from "./src/p";
+import {getAccessPinCode} from "./src/utils";
 const Stack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function StackNavigators() {
   const {t} = useTranslation('common');
-  const userInfo = useSelector(state => state.app.user);
   return(
       <RootStack.Navigator
           screenOptions={{
@@ -48,13 +48,6 @@ function StackNavigators() {
               fontWeight: 'bold',
             },
           }}>
-        {userInfo && userInfo.pinCode === null && (
-            <RootStack.Screen
-                name="OtpPin"
-                component={OtpPinInput}
-                options={{headerShown: false}}
-            />
-        )}
        <RootStack.Screen
            name="HomeScreen"
            options={{headerShown: false}}
@@ -283,6 +276,7 @@ function TabNavigators() {
 const App = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const [support, setSupport]=useState(false)
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(actions.userInfo());
@@ -291,13 +285,34 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-
+  const onPinCode = async ()=>{
+   const pin =   await getAccessPinCode()
+      console.log(pin)
+      if (pin !== null){
+          setSupport(false)
+      }else {
+          setSupport(true)
+      }
+  }
+useEffect(()=>{
+    onPinCode()
+},[])
   return (
     <>
       <NavigationContainer>
         {isAuthenticated ? (
             <>
-              <TabNavigators/>
+                {support ? (
+                    <>
+                       <RootStack.Navigator>
+                           <RootStack.Screen name={'p'} component={Pi}  options={{headerShown: false}}/>
+                       </RootStack.Navigator>
+                    </>
+                ):(
+                    <>
+                        <TabNavigators/>
+                    </>
+                )}
             </>
         ) : (
           <Stack.Navigator>

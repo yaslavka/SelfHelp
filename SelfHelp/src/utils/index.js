@@ -14,6 +14,22 @@ export const getAccessToken = async () => {
 export const setAccessToken = async ({access_token}) => {
   await AsyncStorage.setItem('access_token', access_token);
 };
+
+export const getAccessPinCode = async () => {
+  try {
+    const pinCode = await AsyncStorage.getItem('pinCode');
+    if (pinCode === null) {
+      return null;
+    }
+    return pinCode;
+  } catch (error) {
+    return error;
+  }
+};
+export const setAccessPinCode = async ({pinCode}) => {
+  await AsyncStorage.setItem('pinCode', pinCode);
+  console.log(pinCode)
+};
 export const createFormDataObj = payload => {
   const formData = new FormData();
   for (let key in payload) {

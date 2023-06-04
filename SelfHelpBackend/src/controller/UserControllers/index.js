@@ -127,6 +127,8 @@ class UserController {
         }
         return res.status(200).json({otpVerify: true})
     }
+
+
     async login(req, res){
         const {phone, password}=req.body
         const user = await UsersTable.findOne({where: {phone:phone}})
@@ -147,6 +149,9 @@ class UserController {
         return res.status(200).json({access_token})
 
     }
+
+
+
     async pinsetup(req,res){
         const { authorization } = req.headers;
         const {pin}=req.body
