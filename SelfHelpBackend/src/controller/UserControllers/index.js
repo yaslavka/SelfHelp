@@ -151,23 +151,59 @@ class UserController {
     }
 
 
-
     async pinsetup(req,res){
         const { authorization } = req.headers;
-        const {pin}=req.body
+        const {pin}=req.body;
+        console.log(req.body);
         if (!authorization){
             return res.status(500).json({message: 'Вы не авторизованы'})
         }
         const token = authorization.slice(7);
         const hashPin = await bcrypt.hash(pin, 5);
         try {
-            let update ={pinCode: hashPin}
+            let update ={pinCode: hashPin};
             const {phone} = jwt.decode(token);
-            const user = await UsersTable.findOne({where: {phone:phone}})
-            await UsersTable.update(update,{where:{id:user.id}})
-            return res.status(200).json({pinVerify: true})
+            const user = await UsersTable.findOne({where: {phone:phone}});
+            await UsersTable.update(update,{where:{id:user.id}});
+            const pinCode = generateJwt(
+                user.id,
+                user.email,
+                user.last_name,
+                user.inviter_id,
+                user.phone
+            );
+            return res.status(200).json(pinCode)
         }catch (error){
-            console.log(error)
+            console.log(error);
+            return res.status(500).json({message: error})
+        }
+
+    }
+    async pinVeri(req,res){
+        console.log(req.body);
+        const { authorization } = req.headers;
+        const {pin}=req.body;
+        if (!authorization){
+            return res.status(500).json({message: 'Вы не авторизованы'})
+        }
+        const token = authorization.slice(7);
+        try {
+            const {phone} = jwt.decode(token);
+            const user = await UsersTable.findOne({where: {phone:phone}});
+            let comparePassword = await bcrypt.compareSync(pin, user.pinCode);
+            if (!comparePassword){
+                return res.status(500).json({message: 'Неверный PinCode'})
+            }
+            const pinCode = generateJwt(
+                user.id,
+                user.email,
+                user.last_name,
+                user.inviter_id,
+                user.phone
+            );
+            return res.status(200).json(pinCode)
+        }catch (error){
+            console.log(error);
             return res.status(500).json({message: error})
         }
 

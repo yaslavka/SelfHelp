@@ -21,12 +21,14 @@ export const getAccessPinCode = async () => {
     if (pinCode === null) {
       return null;
     }
+    console.log(pinCode)
     return pinCode;
+
   } catch (error) {
     return error;
   }
 };
-export const setAccessPinCode = async ({pinCode}) => {
+export const setAccessPinCode = async (pinCode) => {
   await AsyncStorage.setItem('pinCode', pinCode);
   console.log(pinCode)
 };

@@ -9,6 +9,17 @@ export const signInError = error => ({
   type: ActionTypes.SIGN_IN_REQUEST,
   payload: error,
 });
+
+export const pinCodeVeryfy = values => ({
+  type: ActionTypes.PIN_REQUEST,
+  payload: values,
+});
+export const pinCodeVeryfySuccess = () => ({type: ActionTypes.PIN_SUCCESS});
+export const pinCodeVeryfyError = error => ({
+  type: ActionTypes.PIN_ERROR,
+  payload: error,
+});
+
 /* Sign Up */
 export const signUp = values => ({
   type: ActionTypes.SIGN_UP_REQUEST,

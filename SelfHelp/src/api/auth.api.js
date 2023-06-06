@@ -14,5 +14,11 @@ export const signIn = data =>
     method: 'post',
     data: createFormDataObj({...data, grant_type: 'password'}),
   });
+export const pinCodeVeryfy = data =>
+    baseInstance({
+        url: '/user/pin_verrif/pin',
+        method: 'post',
+        data: createFormDataObj({...data, grant_type: 'pin'}),
+    });
 export const inviter = params =>
     baseInstance({url: '/user/inviter', method: 'get', params});
