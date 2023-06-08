@@ -63,34 +63,36 @@ class UserController {
             phone: phone,
             inviter_id: inviterUser.id,
         });
-        const user =await UsersTable.findOne({where: {phone:phone}})
-        await TypeMatrix.create({
-            name: "START TRX-",
-            summ: 150,
-            canBuy: true,
-            count: 0,
-            isActive: false,
-            userId:user.id
 
-        })
-        await TypeMatrix.create({
-            name: "INVEST TRX-",
-            summ: 1500,
-            canBuy: false,
-            count: 0,
-            isActive: false,
-            userId:user.id
-
-        })
-        await TypeMatrix.create({
-            name: "PROFI TRX-",
-            summ: 15000,
-            canBuy: false,
-            count: 0,
-            isActive: false,
-            userId:user.id
-
-        })
+        // const user =await UsersTable.findOne({where: {phone:phone}})
+        // await TypeMatrix.create({
+        //     name: "START TRX-",
+        //     summ: 150,
+        //     canBuy: true,
+        //     count: 0,
+        //     isActive: false,
+        //     userId:user.id
+        //
+        // })
+        // await TypeMatrix.create({
+        //     name: "INVEST TRX-",
+        //     summ: 1500,
+        //     canBuy: false,
+        //     count: 0,
+        //     isActive: false,
+        //     userId:user.id
+        //
+        // })
+        // await TypeMatrix.create({
+        //     name: "PROFI TRX-",
+        //     summ: 15000,
+        //     canBuy: false,
+        //     count: 0,
+        //     isActive: false,
+        //     userId:user.id
+        //
+        // })
+        return res.status(200).json(true)
 
     }
     async sendSms(req, res){
@@ -209,19 +211,17 @@ class UserController {
 
     }
     async joinTarif(req, res){
-        const privateKey = crypto.randomBytes(32).toString('hex');
-        //console.log("Private Key", privateKey);
-
-        const HttpProvider = TronWeb.providers.HttpProvider;
-        const fullNode = new HttpProvider("https://api.trongrid.io");
-        const solidityNode = new HttpProvider("https://api.trongrid.io");
-        const eventServer = new HttpProvider("https://api.trongrid.io");
-        const tronWeb = new TronWeb(fullNode,solidityNode,eventServer,privateKey);
-
-        const wallet = await tronWeb.createAccount();
-        const balance= await tronWeb.trx.getBalance(wallet.base58)
-        console.log(balance);
-        return res.json(true)
+        const { authorization } = req.headers;
+        if (!authorization){
+            return res.status(500).json({message: 'Вы не авторизованы'})
+        }
+        const token = authorization.slice(7);
+        try {
+            const {phone} = jwt.decode(token);
+            let user = await UsersTable.findOne({where: {phone:phone}})
+        }catch (error){
+            return res.status(500).json({message: 'нахуй'})
+        }
     }
     async userInfo(req, res){
         const { authorization } = req.headers;

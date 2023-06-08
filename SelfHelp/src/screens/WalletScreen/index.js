@@ -47,20 +47,20 @@ function WalletScreen() {
   const navigation = useNavigation()
   const {t} = useTranslation('common');
   // const [price, setPrice]=useState()
-  // const customDataPoint = () => {
-  //   return (
-  //       <View
-  //           style={{
-  //             width: 20,
-  //             height: 20,
-  //             backgroundColor: 'white',
-  //             borderWidth: 4,
-  //             borderRadius: 10,
-  //             borderColor: 'rgba(104, 192, 255, 1)',
-  //           }}
-  //       />
-  //   );
-  // };
+  const customDataPoint = () => {
+    return (
+        <View
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: 'white',
+              borderWidth: 4,
+              borderRadius: 10,
+              borderColor: 'rgba(104, 192, 255, 1)',
+            }}
+        />
+    );
+  };
   //
   //
   // useEffect(()=>{
@@ -108,27 +108,27 @@ function WalletScreen() {
   //
   // console.log(updatedLineData);
   //const resultNumber = [0.017555, 0.018167, 0.018366, 0.018118, 0.018555, 0.017907, 0.017211, 0.01802, 0.026881];
-  // const lineData = [
-  //     {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  //   {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
-  // ];
+  const lineData = [
+      {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+    {value: 15, customDataPoint: customDataPoint}, {value: 30, customDataPoint: customDataPoint}, {value: 26, customDataPoint: customDataPoint}, {value: 40, customDataPoint: customDataPoint},
+  ];
   // const lineData = resultNumber.map((value) => {
   //   return {
   //     value: value,
@@ -274,75 +274,75 @@ function WalletScreen() {
                   </View>
                 </View>
               </View>
-              {/*{chart && (*/}
-              {/*    <View style={{paddingHorizontal: 25, flex: 1, marginBottom: 35}}>*/}
-              {/*      <View style={{ borderRadius: 10, backgroundColor: '#fff', ...styles.shadow, paddingVertical: 15, marginBottom: 20}}>*/}
-              {/*        <View style={{paddingHorizontal: 10}}>*/}
-              {/*          <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10}}>*/}
-              {/*            <Image source={trons} style={{width: 23, height: 28}}/>*/}
-              {/*            <Text style={{color: '#000000', fontWeight: '700', fontSize: 22}}>{' '}TRON  course:</Text>*/}
-              {/*          </View>*/}
-              {/*          <View style={{alignItems: 'center', flexDirection: 'row', marginInline: 10, marginBottom: 10}}>*/}
-              {/*            <View style={{borderRightWidth: 2, borderRightColor: '#4F4F4F'}}>*/}
-              {/*              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 15, marginHorizontal: 10}}>Last Month</Text>*/}
-              {/*              <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 18, marginHorizontal: 10}}>$0,058325</Text>*/}
-              {/*            </View>*/}
-              {/*            <View style={{marginHorizontal: 10}}>*/}
-              {/*              <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 15}}>This Month</Text>*/}
-              {/*              <Text style={{color: '#28C76F', fontWeight: '400', fontSize: 18}}>$0,058325</Text>*/}
-              {/*            </View>*/}
-              {/*          </View>*/}
-              {/*        </View>*/}
-              {/*        <View>*/}
-              {/*          <LineChart*/}
-              {/*              curved*/}
-              {/*              areaChart*/}
-              {/*              isAnimated*/}
-              {/*              animationDuration={1200}*/}
-              {/*              initialSpacing={0}*/}
-              {/*              data={lineData}*/}
-              {/*              spacing={39.2}*/}
-              {/*              thickness={5}*/}
-              {/*              yAxisColor="#0BA5A4"*/}
-              {/*              xAxisColor="#0BA5A4"*/}
-              {/*              startOpacity={0.8}*/}
-              {/*              endOpacity={0.3}*/}
-              {/*              dataPointsHeight={20}*/}
-              {/*              dataPointsWidth={20}*/}
-              {/*              startFillColor="rgba(48, 238, 133, 1)"*/}
-              {/*              endFillColor='rgba(104, 192, 255, 1)'*/}
-              {/*              color="rgba(104, 192, 255, 1)"*/}
-              {/*          />*/}
-              {/*        </View>*/}
-              {/*      </View>*/}
-              {/*      <View style={{alignItems: "center", flexDirection:"row", justifyContent: "center"}}>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(31, 108, 255, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: '#fff', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1ч</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>4ч</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1д</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1н</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1м</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>3м</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>6м</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*        <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>*/}
-              {/*          <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1г</Text>*/}
-              {/*        </TouchableOpacity>*/}
-              {/*      </View>*/}
-              {/*    </View>*/}
-              {/*)}*/}
+              {chart && (
+                  <View style={{paddingHorizontal: 25, flex: 1, marginBottom: 35}}>
+                    <View style={{ borderRadius: 10, backgroundColor: '#fff', ...styles.shadow, paddingVertical: 15, marginBottom: 20}}>
+                      <View style={{paddingHorizontal: 10}}>
+                        <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10}}>
+                          <Image source={trons} style={{width: 23, height: 28}}/>
+                          <Text style={{color: '#000000', fontWeight: '700', fontSize: 22}}>{' '}TRON  course:</Text>
+                        </View>
+                        <View style={{alignItems: 'center', flexDirection: 'row', marginInline: 10, marginBottom: 10}}>
+                          <View style={{borderRightWidth: 2, borderRightColor: '#4F4F4F'}}>
+                            <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 15, marginHorizontal: 10}}>Last Month</Text>
+                            <Text style={{color: '#2C2C2C', fontWeight: '400', fontSize: 18, marginHorizontal: 10}}>$0,058325</Text>
+                          </View>
+                          <View style={{marginHorizontal: 10}}>
+                            <Text style={{color: '#2C2C2C', fontWeight: '700', fontSize: 15}}>This Month</Text>
+                            <Text style={{color: '#28C76F', fontWeight: '400', fontSize: 18}}>$0,058325</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View>
+                        <LineChart
+                            curved
+                            areaChart
+                            isAnimated
+                            animationDuration={1200}
+                            initialSpacing={0}
+                            data={lineData}
+                            spacing={39.2}
+                            thickness={5}
+                            yAxisColor="#0BA5A4"
+                            xAxisColor="#0BA5A4"
+                            startOpacity={0.8}
+                            endOpacity={0.3}
+                            dataPointsHeight={20}
+                            dataPointsWidth={20}
+                            startFillColor="rgba(48, 238, 133, 1)"
+                            endFillColor='rgba(104, 192, 255, 1)'
+                            color="rgba(104, 192, 255, 1)"
+                        />
+                      </View>
+                    </View>
+                    <View style={{alignItems: "center", flexDirection:"row", justifyContent: "center"}}>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(31, 108, 255, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: '#fff', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1ч</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>4ч</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1д</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1н</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1м</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>3м</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>6м</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{width: 32, height: 32, backgroundColor: 'rgba(235, 243, 250, 1)', borderRadius: 10, marginHorizontal: 10}}>
+                        <Text style={{color: 'rgba(31, 108, 255, 1)', textAlign: "center", padding:5, fontSize: 14, fontWeight: '500'}}>1г</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+              )}
               {/*{exchange && (*/}
               {/*    <View style={{paddingHorizontal: 25}}>*/}
               {/*      <Text style={{color: '#000000', fontWeight: '700', fontSize: 22}}>*/}

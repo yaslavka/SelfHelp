@@ -30,7 +30,6 @@ import {StyleSheet, TouchableOpacity, AppState} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {View} from "react-native-animatable";
 import Pi from "./src/p";
-import {getAccessPinCode} from "./src/utils";
 
 const Stack = createNativeStackNavigator();
 const RootStack = createNativeStackNavigator();

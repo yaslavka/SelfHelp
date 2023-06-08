@@ -68,7 +68,7 @@ app.use('/api/user/item_counts', UserItemCounts.userItem);
 app.use('/api/user/item_bonuses', UserItemCounts.userItemBonuses);
 app.use('/api/user/user_structure', UserStructure.userStructure);
 app.use('/api/user/user_structure_id', UserStructure.userStructureId);
-app.use('/api/matrix/type_map', TarifController.tarifMap);
+//app.use('/api/matrix/type_map', TarifController.tarifMap);
 app.use('/api/user', UserController.userInfo);
 const start = async ()=>{
     try {

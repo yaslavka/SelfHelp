@@ -16,6 +16,9 @@ const UsersTable = sequelize.define("user", {
     phone: {type: DataTypes.STRING, allowNull: false},
     registration_date: {type: DataTypes.DATE, defaultValue: null},
     username: {type: DataTypes.STRING, defaultValue: null},
+    start: {type: DataTypes.BOOLEAN, defaultValue: true},
+    invest: {type: DataTypes.BOOLEAN, defaultValue: false},
+    pro: {type: DataTypes.BOOLEAN, defaultValue: false},
     isAdmin: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 UsersTable.belongsTo(UsersTable, {foreignKey: 'inviter_id', as: 'inviter'})
